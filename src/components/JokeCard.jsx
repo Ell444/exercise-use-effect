@@ -4,7 +4,8 @@ import { useState } from "react";
 
 const JokeCard = () => {
     const [joke, setJoke] = useState();
-    const [click, setClick] = useState(false)
+    const [click, setClick] = useState(false);
+    const [reload, setReload] = useState(true);
 
     const fetchData = async () => {
         try {
@@ -21,7 +22,7 @@ const JokeCard = () => {
 
     useEffect(() => {
         fetchData()
-    }, []);
+    }, [reload]);
 
 
 
@@ -36,14 +37,16 @@ const JokeCard = () => {
                     {click === true ? (
                         <div>
                             <p>{joke.delivery}</p>
-                            <button>Reload</button>
+                            <button onClick={() => {
+                                return setClick(!click), setReload(!reload)
+                            }}>Reload</button>
                         </div>
                     ) : (
-                        <button>Answer</button>
+                        <button onClick={() => setClick(!click)}>Answer</button>
                     )}
 
                 </div>
-            )};
+            )}
         </div>
 
     </>)
